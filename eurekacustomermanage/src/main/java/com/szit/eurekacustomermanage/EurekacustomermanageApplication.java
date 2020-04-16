@@ -1,24 +1,22 @@
-package com.szit.eurekauser;
+package com.szit.eurekacustomermanage;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("com.szit.eurekauser.mapper")
-public class EurekauserApplication {
+@MapperScan("com.szit.eurekacustomermanager.mapper")
+public class EurekacustomermanageApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EurekauserApplication.class, args);
-        System.out.println("用户服务器已启动!");
+        SpringApplication.run(EurekacustomermanageApplication.class, args);
+        System.out.println("客户管理服务器已启动!");
     }
     @Bean
-    @LoadBalanced
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }

@@ -1,4 +1,4 @@
-package com.szit.eurekauser;
+package com.szit.eurekamanager;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -10,15 +10,14 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("com.szit.eurekauser.mapper")
-public class EurekauserApplication {
+@MapperScan("com.szit.eurekamanager.mapper")
+public class EurekamanagerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EurekauserApplication.class, args);
-        System.out.println("用户服务器已启动!");
+        SpringApplication.run(EurekamanagerApplication.class, args);
+        System.out.println("管理员服务器已启动!");
     }
     @Bean
-    @LoadBalanced
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
