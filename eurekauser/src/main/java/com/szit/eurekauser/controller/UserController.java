@@ -75,30 +75,19 @@ public class UserController {
      * @return
      */
     @RequestMapping("/phonelogin.html")
-    protected String phoneLogin(@RequestParam("telphone")String phone,@RequestParam("code")String code,
+    protected String phoneLogin(@RequestParam("phone")String phone,@RequestParam("phone_code")String code,
                                 Model model,HttpSession session){
-        String url="phonelogin";
+        String url="login";
         User user = userService.searchBytelphone(phone);
-        if(phone!=null && !phone.equals("")) {
-            if(user!=null){
-                if(code!=null && !code.equals("")) {
-                    if (code.equals(session.getAttribute("phoneCode"))) {
-                        session.setAttribute("loginUser", user);
-                        url = "redirect:userindex.html";
-                    } else {
-                        model.addAttribute("phone", phone);
-                        model.addAttribute("message", "验证码错误！");
-                    }
-                }else {
-                    model.addAttribute("message", "请输入验证码！");
-                }
+        if(user!=null) {
+            if (code.equals(session.getAttribute("phoneCode"))) {
+                session.setAttribute("loginUser", user);
+                url = "redirect:userindex.html";
             } else {
-                model.addAttribute("message","您未注册，请注册！");
+                model.addAttribute("phone", phone);
+                model.addAttribute("message", "验证码错误！");
             }
-        }else{
-            model.addAttribute("message","请输入手机号！");
         }
-
         return url;
     }
 
@@ -128,14 +117,6 @@ public class UserController {
         out.close();
     }
 
-    /**
-     * 访问注册页面
-     * @return
-     */
-    @RequestMapping("/register.html")
-    protected String register(){
-        return "userregister";
-    }
 
     public int r(int min,int max) {
         Random random = new Random();
@@ -267,13 +248,13 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping("/doregister.html")
-    protected String doRegister(User user,@RequestParam("userName")String name,@RequestParam("telphone")String phone,
-                                @RequestParam("userPassword")String password, @RequestParam("code")String code, Model model,HttpSession session){
+    @RequestMapping("/register.html")
+    protected String doRegister(User user,@RequestParam("rusername")String name,@RequestParam("rephone")String phone,
+                                @RequestParam("upassword")String password, @RequestParam("sec_code_hide")String code, Model model,HttpSession session){
         user.setuPassword(password);
         user.setUserName(name);
         user.setTelphone(phone);
-        String url="userregister";
+        String url="login";
         if(user.getUserName()!=null && !user.getUserName().equals("")){
             if(user.getTelphone()!=null&& !user.getTelphone().equals("")){
                 if(user.getuPassword()!=null&& !user.getuPassword().equals("")){
@@ -282,8 +263,9 @@ public class UserController {
                     if(code!=null&&!code.equals("")){
                         if(code.equals(session.getAttribute("phoneCode"))){
                             boolean flag = userService.register(user);
-                            if(flag){
-                                url="redirect:login.html";
+                            if(!flag){
+                                model.addAttribute("message","注册成功");
+                                url="login";
                             }else{
                                 model.addAttribute("user",user);
                                 model.addAttribute("message","系统错误，注册失败！");
@@ -312,21 +294,12 @@ public class UserController {
     }
 
     /**
-     * 访问手机号登录页面
-     * @return
-     */
-    @RequestMapping (value = "/phonelogin.html",method = RequestMethod.GET)
-    protected String plogin(){
-        return "phonelogin";
-    }
-
-    /**
      * 访问登录页面
      * @return
      */
     @RequestMapping (value = "/login.html",method = RequestMethod.GET)
     protected String login(){
-        return "userlogin";
+        return "login";
     }
 
     /**
@@ -336,10 +309,10 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping("/dologin.html")
-    protected String doLogin(User user,@RequestParam("userName") String name,@RequestParam("userPassword") String userPassword,
-                             @RequestParam("code") String code, Model model, HttpSession session){
-        String url="userlogin";
+    @RequestMapping("/usernamelogin.html")
+    protected String doLogin(User user,@RequestParam("user_username_hide") String name,@RequestParam("user_password_hide") String userPassword,
+                             @RequestParam("user_code_hide") String code, Model model, HttpSession session){
+        String url="login";
         user.setUserName(name);
         user.setuPassword(userPassword);
         if(user.getUserName()!=null && !user.getUserName().equals("")){
