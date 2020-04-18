@@ -13,18 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -351,28 +345,8 @@ public class UserController {
      * @return
      */
     @RequestMapping (value = "/userindex.html",method = RequestMethod.GET)
-    protected String userlogin(HttpServletRequest request, HttpServletResponse response,
-                                Model model) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter out = response.getWriter();
-        Cookie[] cookies = request.getCookies();//获取本机cookie
-        String lasttime=null;
-        if (cookies!=null){
-            for (Cookie cookie:cookies){
-                if ("lasttime".equals(cookie.getName())){
-                    lasttime = URLDecoder.decode(cookie.getValue());
-                    model.addAttribute("time",lasttime);
-                    break;//获取到key为lasttime的cookie后，跳出循环
-                }
-            }
-        }
-        if (lasttime==null){
-            model.addAttribute("time","您是第一次访问本网站");
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Cookie cookie = new Cookie("lasttime", URLEncoder.encode(sdf.format(new Date())));
-        cookie.setMaxAge(60*60);
-        response.addCookie(cookie);
+    protected String userlogin(HttpSession session,User user) {
+
         return "userindex";
     }
 }

@@ -1,6 +1,9 @@
 package com.szit.eurekauser.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 信用卡信息实体类
@@ -16,7 +19,9 @@ public class User implements Serializable {
 
     private String uPassword;//登录密码
 
+
     public User() {
+
     }
 
     public User(Integer uid, String telphone, String userName, String uPassword) {

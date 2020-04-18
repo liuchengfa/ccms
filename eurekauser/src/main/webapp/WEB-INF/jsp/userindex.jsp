@@ -7,42 +7,17 @@
 <title>用户主页</title>
 	<link type="text/css" rel="stylesheet" href="./css/style.css" />
 	<script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript">
-		$(function (){
-			function test(divObj,aobj) {
-			var myDiv = $(divObj);
-			$(aobj).mouseover(function (event) {
-				$(divObj).fadeIn();;//调用显示DIV方法
-				$(document).one("mouseover", function () {//对document绑定一个影藏Div方法
-					$(divObj).hide();
-				});
-
-				event.stopPropagation();//阻止事件向上冒泡
-				});
-
-				$(divObj).mouseover(function (event) {
-					event.stopPropagation();//阻止事件向上冒泡
-				});
-			}
-
-			test("#myDiv", "#submeau");
-			test("#myDiv2", "#submeau2");
-			test("#myDiv3", "#submeau3");
-			test("#myDiv4", "#submeau4");
-			test("#myDiv5", "#submeau5");
-			test("#myDiv6", "#submeau6");
-		});
-	</script>
+	<script type="text/javascript" src="./js/userindex.js"></script>
 </head>
 
 <body>
 	<div style="height: 25px">
 		<div style="float: right">
-			<input type="button" id="relogin" name="relogin" value="登录">
-			<input type="button" id="loginout" name="loginout" value="注册">
+			<input type="button" id="login" name="login" value="登录">
+			<input type="button" id="register" name="register" value="注册">
 		</div>
 		<div>欢迎您，${loginUser.userName}进入信用卡管理系统
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上次登录时间：${user.time}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上次登录时间：
 		</div>
 	</div>
 	<div>

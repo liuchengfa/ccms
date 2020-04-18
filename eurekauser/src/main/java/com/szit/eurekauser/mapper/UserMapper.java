@@ -31,4 +31,5 @@ public interface UserMapper {
      * @return 返回是否添加成功
      */
     boolean addUser(User user);
+
 }
