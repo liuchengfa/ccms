@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>用户主页</title>
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css" />
+	<link type="text/css" rel="stylesheet" href="./css/style.css" />
 	<script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript">
 		$(function (){
@@ -32,21 +32,21 @@
 			test("#myDiv5", "#submeau5");
 			test("#myDiv6", "#submeau6");
 		});
-
 	</script>
 </head>
 
 <body>
 	<div style="height: 25px">
 		<div style="float: right">
-			<input type="button" id="relogin" name="relogin" value="重登录">
-			<input type="button" id="loginout" name="loginout" value="退出">
+			<input type="button" id="relogin" name="relogin" value="登录">
+			<input type="button" id="loginout" name="loginout" value="注册">
 		</div>
-		<div>欢迎您，${loginUser.userName}进入信用卡管理系统</div>
+		<div>欢迎您，${loginUser.userName}进入信用卡管理系统
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上次登录时间：${user.time}
+		</div>
 	</div>
 	<div>
   	<div style="width: 100%">
-		<div class="userm" align="center" style="width:10%"><a>首&nbsp;&nbsp;页</a></div>
 		<div class="userm" align="center" style="width:16%">
 			<a id="submeau" href="javascript:;" >客户管理</a>
 			<div id="myDiv" style="display: none">
@@ -99,7 +99,6 @@
   	</div>
 	<div id="operation">
 		<div>最近操作：</div>
-		<div>上次登录时间：${time}</div>
 		<div>温馨提示：</div>
   	</div>
 	  
